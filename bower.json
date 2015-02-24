@@ -1,0 +1,7 @@
+{
+  "name": "paper-card#gh-pages",
+  "private": true,
+  "dependencies": {
+    "paper-card": "PolymerLabs/paper-card#master"
+  }
+}
