@@ -33,14 +33,14 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
 
 <link rel="import" href="../polymer/polymer.html">
 
+<!-- Experimental -->
 <link href="../swipeable-card/swipeable-card.html" rel="import">
-<link href="../paper-shadow/paper-shadow.html" rel="import">
+<link href="../paper-material/paper-material.html" rel="import">
+<link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
 
-<polymer-element name="paper-card" extends="swipeable-card">
+<dom-module id="paper-card">
 
-<template>
-
-  <style>
+<style is="custom-style">
 
     :host {
       display: inline-block;
@@ -89,15 +89,21 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
       position:relative;
     }
 
+    paper-material {
+      @apply(--layout-fit);
+    }
+
   </style>
-  
-  <paper-shadow id="shadow" animated?="{{animatedShadow}}" fit></paper-shadow>
+
+<template>
+
+  <paper-material id="shadow" elevation="{{z}}" animated$="{{animatedShadow}}"></paper-material>
 
   <div class="header">
-    <template if="{{image}}">
+    <template is="dom-if" if="{{image}}">
       <img src="{{image}}">
     </template>
-    <template if="{{heading}}">
+    <template is="dom-if" if="{{heading}}">
       <h1 class="{{ {over: image} | tokenList }}" style="color:{{headingColor}}">{{heading}}</h1>
     </template>
   </div>
@@ -106,11 +112,15 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
 
 </template>
 
+</dom-module>
 <script>
 
   Polymer({
-    publish: {
+    is: 'paper-card',
 
+    extends: 'swipeable-card',
+
+    properties: {
       /**
        * The title of the card.
        *
@@ -118,7 +128,11 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
        * @type string
        * @default ''
        */
-      heading: '',
+      heading: {
+        type: String,
+        value: '',
+        observer: 'headingChanged'
+      },
 
       /**
        * The hex color of the heading.
@@ -127,7 +141,10 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
        * @type string
        * @default '#000'
        */
-      headingColor: '#000',
+      headingColor: {
+        type: String,
+        value: '#000',
+      },
 
       /**
        * The url of the title image of the card.
@@ -136,7 +153,10 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
        * @type string
        * @default ''
        */
-      image:'',
+      image: {
+        type: String,
+        value: '',
+      },
 
       /**
        * The z-depth of this shadow, from 0-5.
@@ -145,7 +165,11 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
        * @type number
        * @default 1
        */
-      z: 1,
+      z: {
+        type: Number,
+        value: 1,
+        observer: 'zChanged'
+      },
 
       /**
        * Set this to true to animate the shadow when setting a new
@@ -155,8 +179,10 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
        * @type boolean
        * @default false
        */
-      animatedShadow: false
-
+      animatedShadow: {
+        type: Boolean,
+        value: false,
+      }
     },
 
     headingChanged: function(old) {
@@ -165,12 +191,5 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
         this.setAttribute('aria-label', this.heading);
       }
     },
-
-    zChanged: function(old, newValue){
-      this.$.shadow.setZ(newValue);
-    }
-
   });
 </script>
-
-</polymer-element>
