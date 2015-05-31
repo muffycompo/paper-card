@@ -90,15 +90,11 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
       position:relative;
     }
 
-    paper-material {
-      @apply(--layout-fit);
-    }
-
   </style>
 
 <template>
 
-  <paper-material id="shadow" elevation="{{z}}" animated$="{{animatedShadow}}"></paper-material>
+  <paper-material id="shadow" elevation="{{z}}" animated$="{{animatedShadow}}" class="fit"></paper-material>
 
   <div class="header">
     <template is="dom-if" if="{{image}}">
