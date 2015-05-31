@@ -35,6 +35,7 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
 
 <!-- Experimental -->
 <link href="../swipeable-card/swipeable-card.html" rel="import">
+<link href="../swipeable-card/swipeable-card-behaviors.html" rel="import">
 <link href="../paper-material/paper-material.html" rel="import">
 <link href="../iron-flex-layout/iron-flex-layout.html" rel="import">
 
@@ -118,7 +119,7 @@ By default, the `aria-label` will be set to the value of the `heading` attribute
   Polymer({
     is: 'paper-card',
 
-    extends: 'swipeable-card',
+    bahaviors: [SwipeableBehavior],
 
     properties: {
       /**
